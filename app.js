@@ -2,28 +2,43 @@
     'use strict';
 
     angular
-        .module('app', ['ngRoute', 'ngCookies'])
+        .module('app', ['ngRoute', 'ngCookies', 'oitozero.ngSweetAlert'])
+        .constant('API_URL', 'http://SERVER_IP:SERVER_PORT')
+        .config(function ($httpProvider) {
+            $httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
+        })
         .config(config)
         .run(run);
+
 
     config.$inject = ['$routeProvider', '$locationProvider'];
     function config($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
                 controller: 'HomeController',
-                templateUrl: 'home/home.view.html',
+                templateUrl: 'views/home.view.html',
                 controllerAs: 'vm'
             })
 
             .when('/login', {
                 controller: 'LoginController',
-                templateUrl: 'login/login.view.html',
+                templateUrl: 'views/login.view.html',
                 controllerAs: 'vm'
             })
 
             .when('/register', {
                 controller: 'RegisterController',
-                templateUrl: 'register/register.view.html',
+                templateUrl: 'views/register.view.html',
+                controllerAs: 'vm'
+            })
+            .when('/filmes', {
+                controller: 'FilmeController',
+                templateUrl: 'views/filmes.view.html',
+                controllerAs: 'vm'
+            })
+            .when('/filmes/inserir', {
+                controller: 'FilmeController',
+                templateUrl: 'views/inserirfilme.view.html',
                 controllerAs: 'vm'
             })
 

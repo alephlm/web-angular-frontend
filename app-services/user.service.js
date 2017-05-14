@@ -5,41 +5,26 @@
         .module('app')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http'];
-    function UserService($http) {
+    UserService.$inject = ['$http', 'API_URL'];
+    function UserService($http, API_URL) {
         var service = {};
 
-        service.GetAll = GetAll;
-        service.GetById = GetById;
-        service.GetByUsername = GetByUsername;
+        service.GetLoggedUser = GetLoggedUser;
         service.Create = Create;
-        service.Update = Update;
-        service.Delete = Delete;
 
         return service;
 
-        function GetAll() {
-            return $http.get('/api/users').then(handleSuccess, handleError('Error getting all users'));
-        }
-
-        function GetById(id) {
-            return $http.get('/api/users/' + id).then(handleSuccess, handleError('Error getting user by id'));
-        }
-
-        function GetByUsername(username) {
-            return $http.get('/api/users/' + username).then(handleSuccess, handleError('Error getting user by username'));
+        function GetLoggedUser() {
+            return $http.get(API_URL + '/user/user/').then(handleSuccess, handleError('Erro a ao efetuar login.'));
         }
 
         function Create(user) {
-            return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
-        }
-
-        function Update(user) {
-            return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
-        }
-
-        function Delete(id) {
-            return $http.delete('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
+            return $http.post(API_URL + '/user/registration/', user)
+                .then(function successCallback(response) {
+                    return response = { success: true, data: user};
+                  }, function errorCallback(response) {
+                    return handleError(response);
+                });
         }
 
         // private functions
@@ -48,9 +33,9 @@
             return res.data;
         }
 
-        function handleError(error) {
+        function handleError(err) {
             return function () {
-                return { success: false, message: error };
+                return { success: false, message: err };
             };
         }
     }

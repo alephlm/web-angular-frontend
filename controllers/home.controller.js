@@ -17,11 +17,11 @@
 
         function initController() {
             loadCurrentUser();
-            loadAllUsers();
+            //loadAllUsers();
         }
 
         function loadCurrentUser() {
-            UserService.GetByUsername($rootScope.globals.currentUser.username)
+            UserService.GetLoggedUser()
                 .then(function (user) {
                     vm.user = user;
                 });
