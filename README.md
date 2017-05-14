@@ -20,6 +20,6 @@ Neste exemplo foi usado o servidor http-server. Mas qualquer servidor pode ser u
 [Aqui](https://gist.github.com/willurd/5720255) há uma lista de vários servidores pequenos.
 Distribuiçes Ubuntu normalmente já vem com o servidor ```python -m SimpleHTTPServer``` que também pode ser usado.
 
-## Tecnologias Usadas no projetos.
+## Tecnologias utilizadas no projeto.
 Nesse projeto foi utilizado [angularJs](https://angularjs.org/) como principal ferramenta para o desenvolvimento da aplicação.
 
